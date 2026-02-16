@@ -1,16 +1,18 @@
-# Resend Email Gateway
+# OwnMail
 
-> The simplest way to self-host a modern email backend powered by [Resend](https://resend.com).
+> The simplest way to self-host a modern email client powered by [Resend](https://resend.com).
 
-A lightweight, self-hostable email gateway that uses Resend as delivery infrastructure. Send and receive email through a clean REST API, store messages locally, and manage everything from a minimal dashboard. No Postfix. No IP warmup. No spam reputation headaches.
+A lightweight, self-hostable email platform that uses Resend as delivery infrastructure. Compose, send, and receive email through a clean web interface with full attachment support, local inbox storage, and a REST API for automation. No Postfix. No IP warmup. No spam reputation headaches.
 
-## What This Is
+## Features
 
-- A REST API for sending email via Resend
-- A webhook receiver for inbound email
-- Local inbox storage (SQLite by default)
-- A minimal web dashboard
-- Docker-first deployment
+- **Compose & Send** — Full compose UI with rich text (HTML) support, file attachments, and reply-to
+- **Receive & Read** — Inbound email via Resend webhooks with full body and attachment rendering
+- **Inbox Dashboard** — Browse, search, and manage your emails from a modern Next.js interface
+- **Attachment Support** — Upload attachments when composing; download attachments from received emails
+- **Local Storage** — All emails stored locally in SQLite (Postgres support planned)
+- **REST API** — Programmatic access for sending, listing, and managing emails
+- **Docker-First** — One command deployment with Docker Compose
 
 ## What This Is NOT
 
@@ -57,10 +59,14 @@ API_KEY=your-secret-api-key-here
 docker compose up -d
 ```
 
-- Dashboard: [http://localhost:3000](http://localhost:3000)
-- API: [http://localhost:8080](http://localhost:8080)
+- **Dashboard:** [http://localhost:3000](http://localhost:3000) — compose, read, and manage your email
+- **API:** [http://localhost:8080](http://localhost:8080) — programmatic access
 
 ### 5. Send your first email
+
+Open the dashboard at [http://localhost:3000/compose](http://localhost:3000/compose) and compose your first email — with attachments if you like.
+
+Or use the API:
 
 ```bash
 curl -X POST http://localhost:8080/api/send \
@@ -69,41 +75,53 @@ curl -X POST http://localhost:8080/api/send \
   -d '{
     "from": "hello@example.com",
     "to": "user@gmail.com",
-    "subject": "Hello from Resend Gateway",
+    "subject": "Hello from OwnMail",
     "text": "It works!"
   }'
 ```
 
+## Dashboard
+
+The web dashboard provides a full email experience:
+
+| Page | Description |
+|------|-------------|
+| **Inbox** | View all sent and received emails with pagination |
+| **Compose** | Write and send emails with HTML support and file attachments |
+| **Email View** | Read full email content, view headers, and download attachments |
+| **Config** | Check domain verification status and system configuration |
+
 ## API Reference
 
-| Method | Endpoint             | Auth           | Description                |
-| ------ | -------------------- | -------------- | -------------------------- |
-| POST   | `/api/send`          | Bearer token   | Send email via Resend      |
-| POST   | `/api/webhook`       | Svix signature | Receive inbound email      |
-| GET    | `/api/inbox`         | Bearer token   | List emails (paginated)    |
-| GET    | `/api/inbox/:id`     | Bearer token   | Get single email           |
-| DELETE | `/api/inbox/:id`     | Bearer token   | Delete email               |
-| GET    | `/api/health`        | None           | Health check               |
-| GET    | `/api/config/status` | Bearer token   | Domain & config status     |
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| POST | `/api/send` | Bearer token | Send email (with optional attachments) |
+| POST | `/api/webhook` | Svix signature | Receive inbound email |
+| GET | `/api/inbox` | Bearer token | List emails (paginated) |
+| GET | `/api/inbox/:id` | Bearer token | Get single email with full content |
+| GET | `/api/inbox/:id/attachments/:attachmentId` | Bearer token | Download an attachment |
+| DELETE | `/api/inbox/:id` | Bearer token | Delete email |
+| GET | `/api/health` | None | Health check |
+| GET | `/api/config/status` | Bearer token | Domain & config status |
 
 ## Architecture
 
 ```
-User -> REST API -> Fastify Server -> Resend API
-Resend -> Webhook -> Fastify Server -> SQLite -> Dashboard
+User -> Dashboard (Next.js) -> API Server (Fastify) -> Resend API
+Resend -> Webhook -> API Server -> Fetch Full Email -> SQLite -> Dashboard
 ```
 
 ### Project Structure
 
 ```
-resend-emails/
+OwnMail/
 ├── apps/
 │   ├── server/          # Fastify API + webhook listener
-│   └── dashboard/       # Next.js inbox UI
+│   └── dashboard/       # Next.js web interface (inbox, compose, config)
 ├── packages/
 │   ├── storage/         # Storage adapter (SQLite, Postgres stub)
 │   ├── types/           # Shared TypeScript types + Zod schemas
-│   └── tsconfig/        # Shared TS configscom
+│   └── tsconfig/        # Shared TS configs
 ├── docker/              # Dockerfiles
 ├── docs/                # Documentation
 └── docker-compose.yml

@@ -1,6 +1,6 @@
 # Setup Guide
 
-A detailed walkthrough for getting Resend Email Gateway running.
+A detailed walkthrough for getting OwnMail running.
 
 ## Prerequisites
 
@@ -107,6 +107,11 @@ pnpm dev
 ```
 
 The server runs on `http://localhost:8080` and the dashboard on `http://localhost:3000`.
+
+Once running, open the dashboard to:
+- **Compose** emails at [http://localhost:3000/compose](http://localhost:3000/compose)
+- **Browse your inbox** at [http://localhost:3000](http://localhost:3000)
+- **Check configuration** at [http://localhost:3000/config](http://localhost:3000/config)
 
 ## Tunneling Webhooks for Local Development
 

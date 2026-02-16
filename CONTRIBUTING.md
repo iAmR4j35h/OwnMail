@@ -1,4 +1,4 @@
-# Contributing to Resend Email Gateway
+# Contributing to OwnMail
 
 Thank you for your interest in contributing! This guide will help you get started.
 
@@ -14,8 +14,8 @@ Thank you for your interest in contributing! This guide will help you get starte
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/resend-email-gateway.git
-cd resend-email-gateway
+git clone https://github.com/iAmR4j35h/OwnMail.git
+cd OwnMail
 
 # Install dependencies
 pnpm install
@@ -30,8 +30,8 @@ pnpm dev
 
 ### Project Structure
 
-- `apps/server` — Fastify API server
-- `apps/dashboard` — Next.js dashboard
+- `apps/server` — Fastify API server (sending, receiving, webhooks, attachments)
+- `apps/dashboard` — Next.js web interface (inbox, compose, email viewer, config)
 - `packages/types` — Shared TypeScript types and Zod schemas
 - `packages/storage` — Storage adapter interface and implementations
 - `packages/tsconfig` — Shared TypeScript configurations

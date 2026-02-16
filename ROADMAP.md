@@ -3,13 +3,16 @@
 ## Milestone 1 — Core MVP (v0.1.0)
 
 - [x] Send email via REST API (Resend integration)
+- [x] Compose email from web dashboard (with HTML support)
 - [x] Receive inbound email via webhook
+- [x] Fetch full inbound email body from Resend API
+- [x] Attachment support (upload on compose, download on received emails)
 - [x] Store emails locally (SQLite)
 - [x] Inbox dashboard (list, view, filter)
+- [x] Email viewer with full content and attachment downloads
 - [x] Configuration status page
 - [x] Docker Compose deployment
 - [x] Bearer token authentication
-- [x] Rate limiting
 - [x] Webhook signature verification (Svix)
 
 ## Milestone 2 — Hardening (v0.2.0)
@@ -18,7 +21,6 @@
 - [ ] Structured logging with log rotation
 - [ ] Health check improvements (dependency checks)
 - [ ] Email search (full-text)
-- [ ] Attachment support
 - [ ] Email reply/forward from dashboard
 - [ ] Automated tests (unit + integration)
 
@@ -40,9 +42,9 @@
 ## Milestone 5 — Production Ready (v1.0.0)
 
 - [ ] JWT authentication
-- [ ] API rate limiting per user
+- [ ] Rate limiting (configurable per-user)
 - [ ] Audit logging
-- [ ] Monitoring dashboard (usage stats, rate limit tracking)
+- [ ] Monitoring dashboard (usage stats, delivery tracking)
 - [ ] Provider abstraction (support for alternative email APIs)
 - [ ] Comprehensive documentation site
 - [ ] Stable API with semantic versioning guarantee

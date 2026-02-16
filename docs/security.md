@@ -1,6 +1,6 @@
 # Security
 
-Security considerations and best practices for running Resend Email Gateway.
+Security considerations and best practices for running OwnMail.
 
 ## Threat Model
 
