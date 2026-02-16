@@ -1,0 +1,35 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
+    env_file: .env
+    volumes:
+      - email-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://0.0.0.0:8080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+    ports:
+      - "${DASHBOARD_PORT:-3000}:3000"
+    environment:
+      - INTERNAL_API_URL=http://server:8080
+      - API_KEY=${API_KEY}
+    depends_on:
+      server:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  email-data:
+    driver: local

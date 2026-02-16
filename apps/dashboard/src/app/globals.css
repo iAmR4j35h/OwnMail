@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0a;
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #737373;
+  --color-border: #e5e5e5;
+  --color-primary: #0a0a0a;
+  --color-primary-foreground: #fafafa;
+  --color-accent: #f5f5f5;
+  --color-accent-foreground: #0a0a0a;
+  --color-destructive: #ef4444;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-inbound: #3b82f6;
+  --color-outbound: #8b5cf6;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-background: #0a0a0a;
+    --color-foreground: #fafafa;
+    --color-muted: #1c1c1c;
+    --color-muted-foreground: #a3a3a3;
+    --color-border: #262626;
+    --color-primary: #fafafa;
+    --color-primary-foreground: #0a0a0a;
+    --color-accent: #1c1c1c;
+    --color-accent-foreground: #fafafa;
+    --color-destructive: #dc2626;
+    --color-success: #16a34a;
+    --color-warning: #d97706;
+    --color-inbound: #60a5fa;
+    --color-outbound: #a78bfa;
+  }
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+}
